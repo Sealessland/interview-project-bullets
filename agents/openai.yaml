@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interview Project Bullets"
+  short_description: "Build evidence-backed project bullets for interviews"
+  default_prompt: "Inspect my project and target role, identify defensible improvements, and produce truthful resume bullets with interview follow-up questions."

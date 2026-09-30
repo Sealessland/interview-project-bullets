@@ -1,0 +1,30 @@
+name: Validate skill
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate skill structure
+        run: |
+          test -f SKILL.md
+          test -f README.md
+          test -f LICENSE
+          test -f references/pr-research.md
+          test -f references/bullet-and-interview-guide.md
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path('SKILL.md').read_text(encoding='utf-8')
+          assert text.startswith('---\n') and '\nname: interview-project-bullets\n' in text
+          assert 'TODO' not in text
+          PY
